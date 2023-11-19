@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_BASE_URL } from '../config';
 import { useNavigate } from 'react-router-dom';
+import { CiShare2 } from "react-icons/ci";
 
 function Recipes() {
   const navigate = useNavigate();
@@ -45,6 +46,50 @@ const userid = localStorage.getItem('userid')
       console.error('Save error:', error);
     }
   };
+
+  const handleShareRecipe = (recipe) => {
+    const recipeUrl = `${window.location.origin}/recipe/${recipe._id}`;
+    
+    if (navigator.share) {
+      navigator.share({
+        title: recipe.title,
+        text: `Check out this recipe: ${recipe.title}`,
+        url: recipeUrl,
+      })
+        .then(() => console.log('Shared successfully'))
+        .catch((error) => console.error('Share failed:', error));
+    } else {
+
+      console.log('Share API not supported, implement your own sharing logic here');
+    }
+  };
+
+  const handleAddComment = (e, recipe) => {
+    e.preventDefault();
+    const commentInput = e.target.querySelector('input');
+    const newComment = commentInput.value;
+  
+
+    axios.post(`${API_BASE_URL}/${recipe._id}/comments`, { comment: newComment })
+      .then(response => {
+        // Update the local state with the new comment
+        setRecipes(prevRecipes => {
+          return prevRecipes.map(prevRecipe => {
+            if (prevRecipe._id === recipe._id) {
+              return { ...prevRecipe, comments: [...prevRecipe.comments, newComment] };
+            }
+            return prevRecipe;
+          });
+        });
+      })
+      .catch(error => {
+        console.error('Error adding comment:', error);
+      });
+  
+    // Clear the comment input field
+    commentInput.value = '';
+  };
+
   return (
     <div>
     <h2>Recipes</h2>
@@ -57,7 +102,32 @@ const userid = localStorage.getItem('userid')
             <p>Ingredients: {recipe.ingredients}</p>
             <p>Instructions: {recipe.instructions}</p>
             <p>Cooking Time: {recipe.cookingtime} minutes</p>
-            {localStorage.userLoggedIn && <button onClick={() => handleSaveRecipe(recipe._id)}>Save</button>}
+            {localStorage.userLoggedIn && <button onClick={() => handleSaveRecipe(recipe._id)}>Save</button>} 
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;            <CiShare2 style={{ fontSize: '24px' }} 
+            onClick={() => handleShareRecipe(recipe)} />
+           
+            
+
+            <div >
+            <br></br>
+              <form onSubmit={(e) => handleAddComment(e, recipe)}>
+                <input
+                  type="text"
+                  placeholder="Add a comment"
+                  style={{ width: '120px', fontSize: '14px' }}
+                />
+              </form>
+              <button
+                type="submit"
+                style={{ fontSize: '15px' }}
+              >
+                Comment
+              </button>
+            </div>
+
+              {recipe.comments && recipe.comments.map((comment, index) => (
+                <p key={index}>{comment}</p>
+              ))}
           </div>
         </div>
       ))}
