@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_BASE_URL } from '../config';
 import { useNavigate } from 'react-router-dom';
-import {BsSend } from 'react-icons/bs';
+import { BsSend } from 'react-icons/bs';
 
 function Recipes() {
   const navigate = useNavigate();
