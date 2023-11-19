@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_BASE_URL } from '../config';
 import { useNavigate } from 'react-router-dom';
-import { CiShare2 } from "react-icons/ci";
+import {BsSend } from 'react-icons/bs';
 
 function Recipes() {
   const navigate = useNavigate();
@@ -103,10 +103,10 @@ const userid = localStorage.getItem('userid')
             <p>Instructions: {recipe.instructions}</p>
             <p>Cooking Time: {recipe.cookingtime} minutes</p>
             {localStorage.userLoggedIn && <button onClick={() => handleSaveRecipe(recipe._id)}>Save</button>} 
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;            <CiShare2 style={{ fontSize: '24px' }} 
-            onClick={() => handleShareRecipe(recipe)} />
-           
-            
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   
+             <div onClick={()} => handleShareRecipe(recipe)}>
+              <BsSend size={20} />
+              </div>
 
             <div >
             <br></br>
