@@ -104,9 +104,9 @@ const userid = localStorage.getItem('userid')
             <p>Cooking Time: {recipe.cookingtime} minutes</p>
             {localStorage.userLoggedIn && <button onClick={() => handleSaveRecipe(recipe._id)}>Save</button>} 
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   
-             <div onClick={()} => handleShareRecipe(recipe)}>
+            <div onClick={() => handleShareRecipe(recipe)}>
               <BsSend size={20} />
-              </div>
+            </div>
 
             <div >
             <br></br>
