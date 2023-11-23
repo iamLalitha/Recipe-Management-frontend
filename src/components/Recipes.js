@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_BASE_URL } from '../config';
 import { useNavigate } from 'react-router-dom';
-import { CiShare2 } from 'react-icons/ci';
 
 function Recipes() {
   const navigate = useNavigate();
@@ -105,8 +104,10 @@ const userid = localStorage.getItem('userid')
             {localStorage.userLoggedIn && <button onClick={() => handleSaveRecipe(recipe._id)}>Save</button>} 
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   
               <button onClick={() => handleShareRecipe(recipe)}>
-                <CiShare2 size={20} />
-              </button>
+                    <span role="img" aria-label="Share">
+                      &#x1F4E5; {/* Unicode character for share icon */}
+                    </span>
+                  </button>
 
 
             <div >
