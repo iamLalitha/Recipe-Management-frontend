@@ -108,7 +108,7 @@ const userid = localStorage.getItem('userid')
             // onClick={() => handleShareRecipe(recipe)} />
               
               <button onClick={() => handleShareRecipe(recipe)}>
-                    <span class="share">&lt;</span>
+                    <span className="share">&lt;</span>
                   </button>
              
 
