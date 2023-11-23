@@ -104,8 +104,8 @@ const userid = localStorage.getItem('userid')
             <p>Cooking Time: {recipe.cookingtime} minutes</p>
             {localStorage.userLoggedIn && <button onClick={() => handleSaveRecipe(recipe._id)}>Save</button>} 
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  
-             <CiShare2 style={{ fontSize: '24px' }} 
-            onClick={() => handleShareRecipe(recipe)} />
+            //  <CiShare2 style={{ fontSize: '24px' }} 
+            // onClick={() => handleShareRecipe(recipe)} />
               
               <button onClick={() => handleShareRecipe(recipe)}>
                     <span class="share">&lt;</span>
